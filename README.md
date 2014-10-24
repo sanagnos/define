@@ -28,9 +28,7 @@ var IFeline = {
         if (!this.habbits)
             this.habbits = { couchSleeper: false };
     },
-
-    calcHapiness: function (ate) { throw 'gotta write your own code here' }, 
-
+    
     sleepsOnTheCouch: 'habbits.couchSleeper', // access on nested class attribute
 
     pet: function () { // feline's response to petting

@@ -77,7 +77,7 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
                         get: function() {
                             var ctx = this[proparr[0] ];
                             for (var i = 1, len = proparr.length; i < len; i++)
-                                ctx = ctx[proparr[i]];
+                                ctx = ctx[proparr[i] ];
                             return ctx;
                         },
                         set: function(v) {
