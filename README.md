@@ -37,6 +37,7 @@ var IFeline = {
 var IPet = {
     isSleepy        : 'sleepy',
     sleepsOnTheCouch: 'habbits.couchSleeper',
+
     calcHappiness: function (ate) {
         return ate && this.isSleepy ? 0.9 : -10;
     }
@@ -50,9 +51,9 @@ var Cat = define(function (color, sleepy, habbits) {
     this.color   = color;
     this.sleepy  = sleepy;
     this.habbits = habbits;
-}, [
-    IFeline,
-    IPet
+}, [ 
+    IFeline, 
+    IPet 
 ]);
 
 // ============================================================================
@@ -63,14 +64,14 @@ var overTheCouchCat  = new Cat('black', true,  { couchSleeper: true  }),
     underTheCouchCat = new Cat('brown', false, { couchSleeper: false });
 
 console.log([
-    overTheCouchCat.pet(),                // survive
-    overTheCouchCat.isSleepy,             // true
-    overTheCouchCat.sleepsOnTheCouch,     // true
-    overTheCouchCat.calcHappiness(true),  // 0.9
+    overTheCouchCat.pet(),                 // survive
+    overTheCouchCat.isSleepy,              // true
+    overTheCouchCat.sleepsOnTheCouch,      // true
+    overTheCouchCat.calcHappiness(true),   // 0.9
 
-    underTheCouchCat.pet(),               // bite
-    underTheCouchCat.isSleepy,            // false
-    underTheCouchCat.sleepsOnTheCouch,    // false
-    overTheCouchCat.calcHappiness(false), // -10
+    underTheCouchCat.pet(),                // bite
+    underTheCouchCat.isSleepy,             // false
+    underTheCouchCat.sleepsOnTheCouch,     // false
+    underTheCouchCat.calcHappiness(false), // -10
 ].join('\n'));
 ```
