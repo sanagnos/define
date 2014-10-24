@@ -3,7 +3,7 @@ define
 
 > Prototypal class & interface inheritance in Javascript
 
-The scope of this is to formalize class definitions with shared interfaces & superclasses, useful for ensuring x-module compatibility & DRYness.
+The scope is to formalize class definitions with shared interfaces & superclasses, useful for ensuring x-module compatibility & DRYness.
 
 The approach is inline with Javascript's orthogonal take on type-checking.
 
@@ -13,33 +13,28 @@ The approach is inline with Javascript's orthogonal take on type-checking.
 // Interface contract definition
 // ============================================================================
 
-var IFeline = {
+var IPet = {
 
-    sleep: function () {
-        return 'prepare for tomorrow';
-    },
+    isSleepy: 'sleepy', // getter on class attribute
 
-    eat: function () {
-        return 'beware of poison';
-    },
-
-    pet: function () {
-        if (this.habbits && this.habbits.couchSleeper)
-            return Math.random() > 0.5 ? 'bite' : 'survive';
-        return 'bite';
-    },
-
-    walk: function () {
-        return 'escape';
+    calcHappiness: function (ate) { // generic happiness response in pets
+        return ate && this.isSleepy ? 0.9 : -10;
     }
 };
 
-var IPet = {
-    isSleepy        : 'sleepy',
-    sleepsOnTheCouch: 'habbits.couchSleeper',
+var IFeline = {
+    
+    postInit: function () { // called post instantiation (also see preInit)
+        if (!this.habbits)
+            this.habbits = { couchSleeper: false };
+    },
 
-    calcHappiness: function (ate) {
-        return ate && this.isSleepy ? 0.9 : -10;
+    sleepsOnTheCouch: 'habbits.couchSleeper', // getter on nested class attribute
+
+    pet: function () { // feline's response to petting
+        if (this.sleepsOnTheCouch)
+            return Math.random() + 0.2 > 0.5 ? 'purr' : 'survive';
+        return Math.random() > 0.5 ? 'survive' : 'bite';
     }
 };
 
@@ -48,30 +43,39 @@ var IPet = {
 // ============================================================================
 
 var Cat = define(function (color, sleepy, habbits) {
+    
+    // instance properties
     this.color   = color;
     this.sleepy  = sleepy;
     this.habbits = habbits;
 }, [ 
+
+    // shared contracts
     IFeline, 
-    IPet 
+    IPet,
+
+    // custom members
+    {
+        findElevatedVantagePoint: function (furniture) { /* cat ninja code */ }
+    }
 ]);
 
 // ============================================================================
 // Main
 // ============================================================================
 
-var overTheCouchCat  = new Cat('black', true,  { couchSleeper: true  }),
-    underTheCouchCat = new Cat('brown', false, { couchSleeper: false });
+var catOverTheCouch  = new Cat('brown', true,  { couchSleeper: true  }),
+    catUnderTheCouch = new Cat('gray',  false);
 
 console.log([
-    overTheCouchCat.pet(),                 // survive
-    overTheCouchCat.isSleepy,              // true
-    overTheCouchCat.sleepsOnTheCouch,      // true
-    overTheCouchCat.calcHappiness(true),   // 0.9
+    catOverTheCouch.pet(),                 // purr
+    catOverTheCouch.isSleepy,              // true
+    catOverTheCouch.sleepsOnTheCouch,      // true
+    catOverTheCouch.calcHappiness(true),   // 0.9
 
-    underTheCouchCat.pet(),                // bite
-    underTheCouchCat.isSleepy,             // false
-    underTheCouchCat.sleepsOnTheCouch,     // false
-    underTheCouchCat.calcHappiness(false), // -10
+    catUnderTheCouch.pet(),                // bite
+    catUnderTheCouch.isSleepy,             // false
+    catUnderTheCouch.sleepsOnTheCouch,     // false
+    catUnderTheCouch.calcHappiness(false)  // -10
 ].join('\n'));
 ```
