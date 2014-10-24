@@ -1,6 +1,6 @@
 {
   "name": "define",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Stelios Anagnostopoulos <stelios@outlook.com>",
   "description": "Prototypal inheritance in Javascript",
   "license": "All rights reserved"

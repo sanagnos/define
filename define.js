@@ -56,10 +56,8 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
                 keys = meta[midx];
                 kidx = keys.length;
                 while (kidx--)
-
-                    if ( ( typeof this[ keys[kidx] ] === 'undefined' || (typeof this[ keys[kidx] ] === 'string' && this[ keys[kidx] ].indexOf('@require') === 0 ) )
-                        && (keys[kidx] !== 'preInit' && keys[kidx] !== 'postInit' && keys[kidx] !== ' ') )
-
+                    if ( typeof this[ keys[kidx] ] === 'undefined' || (typeof this[ keys[kidx] ] === 'string' 
+                        && this[ keys[kidx] ].indexOf('@require') === 0 ) )
                         throw new Error('missing contract member: ' + keys[kidx]);
                 
             }

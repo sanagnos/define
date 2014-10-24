@@ -59,7 +59,7 @@ var Cat = define(function (color, sleepy, habbits) {
     // custom members
     {
         // exception thrown if missing since required by IFeline with '@require'
-        findElevatedVantagePoint: function (furniture) { /* cat ninja code */ },
+        //findElevatedVantagePoint: function (furniture) { /* cat ninja code */ },
 
         // partially override IPet's method
         calcHappiness: function (ate, whenAsked) {
