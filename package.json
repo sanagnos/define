@@ -1,0 +1,7 @@
+{
+  "name": "define",
+  "version": "0.0.1",
+  "author": "Stelios Anagnostopoulos <stelios@outlook.com>",
+  "description": "Prototypal class & interface inheritance in Javascript",
+  "license": "All rights reserved"
+}
