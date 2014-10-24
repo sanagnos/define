@@ -37,7 +37,7 @@ var IFeline = {
         return Math.random() > 0.5 ? 'survive' : 'bite';
     },
 
-    findElevatedVantagePoint: '@require'
+    findElevatedVantagePoint: '@require' // require member implementation
 };
 
 // ============================================================================
