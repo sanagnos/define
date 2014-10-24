@@ -18,6 +18,8 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
     // Definition
     // ========================================================================
 
+    var keysOf = Object.keys;
+
     /**
      * Generates class definition given a collection of prototype
      * contracts.
@@ -28,10 +30,14 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
      */
     function define (constr, contracts) {
 
-        if (!(contracts instanceof Array))
+        if ( !(contracts instanceof Array) )
             contracts = [contracts];
-        for (var i = 0, len = contracts.length; i < len; i++)
+
+        var meta = new Array(contracts.length);
+        for (var i = 0, len = contracts.length; i < len; i++) {
             bind(constr.prototype, contracts[i]);
+            meta[i] = keysOf( contracts[i] );
+        }
 
         var init = function () {
             if (constr.prototype._preInit)
@@ -43,6 +49,20 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
             if (constr.prototype._postInit)
                 for (var i = 0, len = constr.prototype._postInit.length; i < len; i++)
                     constr.prototype._postInit[i].apply(this, arguments);
+                
+            var midx = meta.length,
+                keys, kidx;
+            while (midx--) {
+                keys = meta[midx];
+                kidx = keys.length;
+                while (kidx--)
+
+                    if ( ( typeof this[ keys[kidx] ] === 'undefined' || (typeof this[ keys[kidx] ] === 'string' && this[ keys[kidx] ].indexOf('@require') === 0 ) )
+                        && (keys[kidx] !== 'preInit' && keys[kidx] !== 'postInit' && keys[kidx] !== ' ') )
+
+                        throw new Error('missing contract member: ' + keys[kidx]);
+                
+            }
         };
 
         init.prototype = new constr;
@@ -70,7 +90,7 @@ typeof window === 'undefined' ? module.exports : window.define = (function () {
             methods    = [],
             tkey;
         for (var key in attr) {
-            if ( typeof attr[key] === 'string' ) {
+            if ( typeof attr[key] === 'string' && attr[key] !== '@require' ) {
                 properties[key] = ( function (proparr) {
                     return {
                         configurable: true,

@@ -5,7 +5,7 @@ define
 
 The scope is to shorten workflows on class definitions with shared interfaces for x-module compatibility & DRYness.
 
-The approach is inline with Javascript's orthogonal take on type-checking.
+The approach is inline with Javascript's laconism & orthogonal take on type-checking.
 
 ## Getting started
 ```javascript
@@ -28,14 +28,16 @@ var IFeline = {
         if (!this.habbits)
             this.habbits = { couchSleeper: false };
     },
-    
+
     sleepsOnTheCouch: 'habbits.couchSleeper', // access on nested class attribute
 
     pet: function () { // feline's response to petting
         if (this.sleepsOnTheCouch)
             return Math.random() + 0.2 > 0.5 ? 'purr' : 'survive';
         return Math.random() > 0.5 ? 'survive' : 'bite';
-    }
+    },
+
+    findElevatedVantagePoint: '@require'
 };
 
 // ============================================================================
@@ -56,9 +58,11 @@ var Cat = define(function (color, sleepy, habbits) {
 
     // custom members
     {
+        // exception thrown if missing since required by IFeline with '@require'
         findElevatedVantagePoint: function (furniture) { /* cat ninja code */ },
 
-        calcHappiness: function (ate, whenAsked) { // override this
+        // partially override IPet's method
+        calcHappiness: function (ate, whenAsked) {
             return whenAsked ? 0.9999999991 : this.calcHappiness.super(ate);
         }
     }
