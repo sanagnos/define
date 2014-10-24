@@ -3,14 +3,14 @@ define
 
 > Prototypal class & interface inheritance in Javascript
 
-The scope is to formalize class definitions with shared interfaces & superclasses, useful for ensuring x-module compatibility & DRYness.
+The scope is to formalize class definitions with shared interfaces & superclasses to ensure x-module compatibility & DRYness.
 
 The approach is inline with Javascript's orthogonal take on type-checking.
 
 ## Getting started
 ```javascript
 // ============================================================================
-// Interface contract definition
+// Interface contracts
 // ============================================================================
 
 var IPet = {
@@ -39,7 +39,7 @@ var IFeline = {
 };
 
 // ============================================================================
-// Class implementation definition
+// Class implementation
 // ============================================================================
 
 var Cat = define(function (color, sleepy, habbits) {
