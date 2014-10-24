@@ -2,7 +2,7 @@
 // define.js
 // ============================================================================
 // 
-// Prototypal class & interface inheritance in Javascript.
+// Prototypal inheritance in Javascript.
 // 
 // @authors
 //      10/23/14    Stelios Anagnostopoulos     stelios@outlook.com
