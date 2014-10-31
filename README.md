@@ -1,11 +1,7 @@
 define
 ======
 
-> Prototypal inheritance in Javascript
-
-The scope is to shorten workflows on class definitions with shared interfaces for x-module compatibility & DRYness.
-
-The approach is inline with Javascript's laconism & orthogonal take on type-checking.
+Now part of [comjs](https://github.com/sanagnos/comjs); usage same as in comjs.
 
 ## Getting started
 ```javascript
